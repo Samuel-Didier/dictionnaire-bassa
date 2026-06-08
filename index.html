@@ -2,8 +2,10 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪶</text></svg>">    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Le Carnet Ɓàsàà – Transmission & Partage</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
             --primary-warm: #2c5e3b; /* Vert feuillage chaud */
@@ -22,7 +24,6 @@
             --border-bassa-box: #e8b4a2;
         }
 
-        /* Reset de base pour éviter les débordements */
         * {
             box-sizing: border-box;
         }
@@ -32,7 +33,7 @@
             background-color: var(--bg-cream);
             color: var(--text-dark);
             margin: 0;
-            padding: 10px; /* Réduit sur mobile pour gagner de la place */
+            padding: 10px;
             display: flex;
             justify-content: center;
         }
@@ -41,14 +42,13 @@
             width: 100%;
             max-width: 900px;
             background: var(--card-smooth);
-            padding: 20px; /* Plus compact sur mobile */
+            padding: 20px;
             border-radius: 20px;
             box-shadow: var(--shadow-smooth);
             margin-top: 10px;
             border: 1px solid var(--border-soft);
         }
 
-        /* En-tête humaine et accueillante */
         .header-area {
             text-align: center;
             margin-bottom: 25px;
@@ -59,10 +59,15 @@
         h1 {
             color: var(--primary-warm);
             margin: 0 0 10px 0;
-            font-size: 1.8rem; /* Plus petit sur mobile par défaut */
+            font-size: 1.8rem;
             font-weight: 800;
             letter-spacing: -0.5px;
             line-height: 1.2;
+        }
+
+        h1 i {
+            color: var(--accent-warm);
+            margin-right: 8px;
         }
 
         .intro-text {
@@ -78,13 +83,22 @@
             font-weight: 600;
         }
 
-        /* Barre de recherche épurée */
+        /* Barre de recherche avec icône loupe intégrée */
         .search-box {
             margin-bottom: 25px;
+            position: relative;
+        }
+        .search-box i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.1rem;
         }
         .search-box input {
             width: 100%;
-            padding: 14px 20px;
+            padding: 14px 20px 14px 50px; /* Espace à gauche pour l'icône */
             font-size: 1rem;
             border: 2px solid var(--border-soft);
             border-radius: 14px;
@@ -92,12 +106,14 @@
             background-color: #faf8f5;
             color: var(--text-dark);
             transition: all 0.3s ease;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.01);
         }
         .search-box input:focus {
             border-color: var(--accent-warm);
             background-color: #fff;
             box-shadow: 0 0 0 4px rgba(201, 111, 83, 0.1);
+        }
+        .search-box input:focus + i {
+            color: var(--accent-warm);
         }
 
         /* Zone de l'index des mots */
@@ -114,6 +130,9 @@
             color: var(--primary-warm);
             text-transform: uppercase;
             letter-spacing: 0.5px;
+        }
+        .list-title i {
+            margin-right: 6px;
         }
         .words-count {
             font-size: 0.8rem;
@@ -135,10 +154,9 @@
             border-radius: 14px;
             max-height: 180px;
             overflow-y: auto;
-            -webkit-overflow-scrolling: touch; /* Défilement fluide sur iOS */
+            -webkit-overflow-scrolling: touch;
         }
 
-        /* Bulles de mots adaptées aux écrans tactiles */
         .word-item-btn {
             background-color: white;
             border: 1px solid var(--border-soft);
@@ -149,7 +167,7 @@
             font-weight: 500;
             transition: all 0.2s ease;
             box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-            user-select: none; /* Évite la sélection de texte au clic répété */
+            user-select: none;
         }
         .word-item-btn:hover {
             background-color: var(--primary-warm);
@@ -170,10 +188,9 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Gestion de l'alignement des gros titres */
         .titles-flex {
             display: flex;
-            flex-direction: column; /* Superposé sur mobile par défaut */
+            flex-direction: column;
             align-items: flex-start;
             margin-bottom: 20px;
             gap: 5px;
@@ -181,7 +198,6 @@
             padding: 5px 0;
         }
 
-        /* On masque la flèche sur petit mobile pour épurer */
         .titles-flex > span {
             display: none;
         }
@@ -211,15 +227,16 @@
             font-style: italic;
             margin-top: 2px;
         }
+        .spelling-fr i {
+            margin-right: 4px;
+        }
 
-        /* Grille adaptative (1 colonne par défaut, 2 sur tablette/PC) */
         .bilingual-grid {
             display: grid;
             grid-template-columns: 1fr;
             gap: 20px;
         }
 
-        /* Libellés de sections */
         .block-label {
             font-size: 0.8rem;
             text-transform: uppercase;
@@ -227,6 +244,9 @@
             color: var(--text-muted);
             margin-bottom: 6px;
             letter-spacing: 0.5px;
+        }
+        .block-label i {
+            margin-right: 5px;
         }
 
         .div-type {
@@ -286,27 +306,27 @@
             padding: 20px;
             font-style: italic;
         }
+        .message i {
+            display: block;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            color: var(--accent-warm);
+        }
 
-        /* ------------------------------------------------------------------ */
-        /* MEDIA QUERIES : Ajustements progressifs pour Tablettes et Écrans PC */
-        /* ------------------------------------------------------------------ */
-
-        /* À partir des tablettes (600px et plus) */
         @media (min-width: 600px) {
             body { padding: 20px; }
             .container { padding: 30px; border-radius: 24px; }
             h1 { font-size: 2.2rem; }
             .intro-text { font-size: 1.05rem; }
             .titles-flex { flex-direction: row; justify-content: space-between; align-items: baseline; }
-            .titles-flex > span { display: inline; } /* On réaffiche la flèche directionnelle */
+            .titles-flex > span { display: inline; }
             .bassa-title-area { text-align: right; }
             .word-title, .translation-title { font-size: 2.4rem; }
         }
 
-        /* À partir des ordinateurs (768px et plus) */
         @media (min-width: 768px) {
             .container { padding: 40px; }
-            .bilingual-grid { grid-template-columns: 1fr 1fr; gap: 30px; } /* Passage sur 2 colonnes */
+            .bilingual-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
             .word-item-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(44, 94, 59, 0.15); }
         }
     </style>
@@ -315,7 +335,7 @@
 
 <div class="container">
     <div class="header-area">
-        <h1>Heritage & Parole</h1>
+        <h1><i class="fa-solid fa-book-open-reader"></i> Heritage & Parole</h1>
         <div class="intro-text">
             Bienvenue dans notre espace vivant de transmission. Ce carnet rassemble les expressions, les murmures de la famille et les structures de la langue <em>Ɓàsàà</em>. Tapez un souvenir ou choisissez un mot pour l'écouter s'ouvrir.
         </div>
@@ -323,57 +343,59 @@
 
     <div class="search-box">
         <input type="text" id="search-input" placeholder="Quel mot ou expression cherchez-vous aujourd'hui ? (ex: maman, inyuu, jɛ́)..." autocomplete="off">
+        <i class="fa-solid fa-magnifying-glass"></i>
     </div>
 
     <div class="words-list-container">
         <div class="list-header-flex">
-            <div class="list-title">Parcourir la mémoire du carnet</div>
-            <div id="words-count" class="words-count font-style: normal;">0 expression</div>
+            <div class="list-title"><i class="fa-solid fa-layer-group"></i> Parcourir la mémoire du carnet</div>
+            <div id="words-count" class="words-count">0 expression</div>
         </div>
         <div id="words-grid" class="words-grid"></div>
     </div>
 
     <div id="message-container" class="message">
+        <i class="fa-solid fa-feather-pointed"></i>
         Ouverture du carnet de transmission...
     </div>
 
     <div id="result-container" class="result-box">
         <div class="titles-flex">
             <h2 id="res-word-fr" class="word-title">Français</h2>
-            <span style="font-size: 1.8rem; color: var(--accent-warm); font-weight: 300;">➔</span>
+            <span style="font-size: 1.8rem; color: var(--accent-warm); font-weight: 300;"><i class="fa-solid fa-arrow-right-long"></i></span>
             <div class="bassa-title-area">
                 <h2 id="res-word-bassa" class="translation-title">Ɓàsàà</h2>
-                <div id="res-spelling-fr" class="spelling-fr">Écriture au clavier : -</div>
+                <div id="res-spelling-fr" class="spelling-fr"><i class="fa-solid fa-keyboard"></i> Saisie simplifiée : -</div>
             </div>
         </div>
 
         <div class="bilingual-grid">
             <div>
                 <div>
-                    <div class="block-label">💡 Usage dans la phrase :</div>
+                    <div class="block-label"><i class="fa-solid fa-tags"></i> Usage dans la phrase :</div>
                     <div id="res-type-fr" class="div-type">-</div>
                 </div>
                 <div>
-                    <div class="block-label">💬 Ce que cela signifie :</div>
+                    <div class="block-label"><i class="fa-solid fa-comment-dots"></i> Ce que cela signifie :</div>
                     <div id="res-def-fr" class="div-definition fr-box">-</div>
                 </div>
                 <div>
-                    <div class="block-label">📝 Exemple de tous les jours :</div>
+                    <div class="block-label"><i class="fa-solid fa-pen-nib"></i> Exemple de tous les jours :</div>
                     <div id="res-ex-fr" class="div-example fr-box">-</div>
                 </div>
             </div>
 
             <div>
                 <div>
-                    <div class="block-label">🌿 Nature en Ɓàsàà :</div>
+                    <div class="block-label"><i class="fa-solid fa-leaf"></i> Nature en Ɓàsàà :</div>
                     <div id="res-type-bassa" class="div-type">-</div>
                 </div>
                 <div>
-                    <div class="block-label">🗣️ Liyak (Le sens profond) :</div>
+                    <div class="block-label"><i class="fa-solid fa-bullhorn"></i> Liyak (Le sens profond) :</div>
                     <div id="res-def-bassa" class="div-definition bassa-box">-</div>
                 </div>
                 <div>
-                    <div class="block-label">🍃 Linyuu (La parole en situation) :</div>
+                    <div class="block-label"><i class="fa-solid fa-quote-left"></i> Linyuu (La parole en situation) :</div>
                     <div id="res-ex-bassa" class="div-example bassa-box">-</div>
                 </div>
             </div>
@@ -397,10 +419,10 @@
 
             dictionnaireBassa = await reponse.json();
 
-            messageContainer.innerHTML = "✨ Choisissez une expression ci-dessus ou écrivez pour explorer.";
+            messageContainer.innerHTML = "<i class='fa-solid fa-wand-magic-sparkles'></i> Choisissez une expression ci-dessus ou écrivez pour explorer.";
             genererListeEtFiltrer("");
         } catch (erreur) {
-            messageContainer.innerHTML = "⚠️ Le carnet n'a pas pu lier le fichier 'mots.json'. Assurez-vous d'utiliser une extension de prévisualisation (Live Server).";
+            messageContainer.innerHTML = "<i class='fa-solid fa-circle-exclamation'></i> Le carnet n'a pas pu lier le fichier 'mots.json'. Assurez-vous d'utiliser Live Server.";
             console.error(erreur);
         }
     }
@@ -419,7 +441,7 @@
                 compteur++;
                 const div = document.createElement('div');
                 div.classList.add('word-item-btn');
-                div.innerHTML = `${motFr} ⇄ ${data.translation}`;
+                div.innerHTML = `<i class="fa-solid fa-language" style="color: var(--accent-warm); font-size:0.85rem; margin-right:4px;"></i> ${motFr} ⇄ ${data.translation}`;
 
                 div.addEventListener('click', () => {
                     afficherMot(motFr);
@@ -431,7 +453,7 @@
         wordsCount.textContent = `${compteur} expression${compteur > 1 ? 's' : ''}`;
 
         if (compteur === 0) {
-            wordsGrid.innerHTML = '<div style="padding: 15px; color: var(--text-muted); font-style: italic;">Aucune parole correspondante dans le carnet pour le moment...</div>';
+            wordsGrid.innerHTML = '<div style="padding: 15px; color: var(--text-muted); font-style: italic;"><i class="fa-solid fa-ban"></i> Aucune parole correspondante dans le carnet pour le moment...</div>';
         }
     }
 
@@ -445,7 +467,7 @@
             const spellingEl = document.getElementById('res-spelling-fr');
             if (motTrouve.orthographe_fr) {
                 spellingEl.style.display = "block";
-                spellingEl.textContent = `Saisie simplifiée : ${motTrouve.orthographe_fr}`;
+                spellingEl.innerHTML = `<i class="fa-solid fa-keyboard"></i> Saisie simplifiée : ${motTrouve.orthographe_fr}`;
             } else {
                 spellingEl.style.display = "none";
             }
