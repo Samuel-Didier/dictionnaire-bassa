@@ -1,0 +1,49 @@
+{
+  "maman": {
+    "translation": "Ínī",
+    "orthographe_fr": "Inii / Ini",
+    "fr": {"type": "Nom", "definition": "Mère, femme qui a mis au monde un enfant.", "exemple": "S'il te plaît maman."},
+    "bassa": {"type": "Hina", "definition": "Muda a bi gwee mañ.", "exemple": "Sɔ́hɔ́ á Yō!"}
+  },
+  "oui": {
+    "translation": "Ŋ̀ŋ̂",
+    "orthographe_fr": "Ngn / Ngng",
+    "fr": {"type": "Adverbe", "definition": "Expression d'affirmation ou d'accord.", "exemple": "Oui, j'ai compris."},
+    "bassa": {"type": "Limbambal", "definition": "Limbambal inyu kwéha jàm.", "exemple": "Ŋ̀ŋ̂, mɛ̀ ǹnɔ́k."}
+  },
+  "non": {
+    "translation": "Tɔ̀ / Tɔ̀!",
+    "orthographe_fr": "To / To!",
+    "fr": {"type": "Adverbe", "definition": "Expression de négation ou de refus.", "exemple": "Non, je ne veux pas."},
+    "bassa": {"type": "Limbambal", "definition": "Limbambal inyu cèl jàm.", "exemple": "Tɔ̀, mɛ̀ ŋ́ɛ̀ɛ̀ ɓé."}
+  },
+  "pourquoi": {
+    "translation": "Ínyùú kīī / Ínyǔkíí?",
+    "orthographe_fr": "Inyuu kii / Inyukii",
+    "fr": {"type": "Pronom interrogatif", "definition": "Demande la cause ou la raison d'une chose.", "exemple": "Pourquoi ris-tu ?"},
+    "bassa": {"type": "Hina", "definition": "Inyu sômbol koda jàm.", "exemple": "Ínyùú kíí ù ńnɔ̀l?"}
+  },
+  "le sein": {
+    "translation": "Lìɓéè",
+    "fr": {"type": "Nom masculin", "definition": "Partie de la poitrine de la femme qui produit le lait.", "exemple": "L'enfant tète le sein."},
+    "bassa": {"type": "Hina", "definition": "Hikuu hi nyuu muda inyu ti mañ mànyûŋ.", "exemple": "Mañ a nyo lìɓéè."}
+  },
+  "les seins": {
+    "translation": "Méè",
+    "orthographe_fr": "Mee",
+    "fr": {"type": "Nom pluriel", "definition": "Forme plurielle pour désigner la poitrine.", "exemple": "Prendre soin de son corps."},
+    "bassa": {"type": "Hina", "definition": "Méè ma muda.", "exemple": "Ntat nyuu iu loñge."}
+  },
+  "la tête": {
+    "translation": "Ŋ̀ɔ́",
+    "orthographe_fr": "Ngo / Ngoa",
+    "fr": {"type": "Nom féminin", "definition": "Partie supérieure du corps humain contenant le cerveau et le visage.", "exemple": "J'ai mal à la tête."},
+    "bassa": {"type": "Hina", "definition": "Hikuu hi ŋgìí hi nyuu mut.", "exemple": "Ŋ̀ɔ́ í ńsòghɛ̀ mɛ̀."}
+  },
+  "la main": {
+    "translation": "Wɔ̀ɔ́",
+    "orthographe_fr": "Woo / Wao",
+    "fr": {"type": "Nom féminin", "definition": "Membre qui sert à toucher, prendre et saluer.", "exemple": "Lave ta main."},
+    "bassa": {"type": "Hina", "definition": "Hikuu hi nyuu inyu yɔ̌ŋ mam.", "exemple": "Jòwá wɔ̀ɔ̀ wɔ́ŋ !"}
+  }
+}

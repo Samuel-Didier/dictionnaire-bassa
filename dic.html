@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Carnet Ɓàsàà – Transmission & Partage</title>
+    <style>
+        :root {
+            --primary-warm: #2c5e3b; /* Vert feuillage chaud */
+            --accent-warm: #c96f53;  /* Ocre / Terre cuite */
+            --bg-cream: #fdfbf7;     /* Fond papier crème doux */
+            --card-smooth: #ffffff;
+            --text-dark: #32292f;    /* Presque noir mais plus doux */
+            --text-muted: #7a6f75;
+            --border-soft: #f0e6df;
+            --shadow-smooth: 0 10px 30px rgba(122, 111, 117, 0.08);
+
+            /* Couleurs des blocs de retranscription */
+            --bg-fr-box: #f4f9f4;
+            --border-fr-box: #a3c6ae;
+            --bg-bassa-box: #fdf5f2;
+            --border-bassa-box: #e8b4a2;
+        }
+
+        body {
+            font-family: 'Segoe UI', Georgia, serif;
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--card-smooth);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: var(--shadow-smooth);
+            margin-top: 20px;
+            border: 1px solid var(--border-soft);
+        }
+
+        /* En-tête humaine et accueillante */
+        .header-area {
+            text-align: center;
+            margin-bottom: 35px;
+            border-bottom: 2px dashed var(--border-soft);
+            padding-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--primary-warm);
+            margin: 0 0 10px 0;
+            font-size: 2.4rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .intro-text {
+            max-width: 650px;
+            margin: 0 auto;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .intro-text em {
+            color: var(--accent-warm);
+            font-weight: 600;
+        }
+
+        /* Barre de recherche épurée */
+        .search-box {
+            margin-bottom: 30px;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 16px 24px;
+            font-size: 1.1rem;
+            border: 2px solid var(--border-soft);
+            border-radius: 16px;
+            outline: none;
+            background-color: #faf8f5;
+            color: var(--text-dark);
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.01);
+        }
+        .search-box input:focus {
+            border-color: var(--accent-warm);
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgba(201, 111, 83, 0.1);
+        }
+
+        /* Zone de l'index des mots */
+        .list-header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .list-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--primary-warm);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .words-count {
+            font-size: 0.85rem;
+            background: var(--border-soft);
+            color: var(--text-dark);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .words-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 20px;
+            background-color: #fbfaf7;
+            border: 1px solid var(--border-soft);
+            border-radius: 16px;
+            max-height: 220px;
+            overflow-y: auto;
+        }
+
+        /* Bulles de mots comme des étiquettes manuscrites */
+        .word-item-btn {
+            background-color: white;
+            border: 1px solid var(--border-soft);
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .word-item-btn:hover {
+            background-color: var(--primary-warm);
+            color: white;
+            border-color: var(--primary-warm);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(44, 94, 59, 0.15);
+        }
+
+        /* Zone d'affichage du mot sélectionné */
+        .result-box {
+            border-top: 2px dashed var(--border-soft);
+            padding-top: 35px;
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .titles-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            gap: 15px;
+            background: #fff;
+            padding: 10px;
+        }
+
+        .word-title {
+            font-size: 2.6rem;
+            font-weight: 800;
+            color: var(--primary-warm);
+            margin: 0;
+        }
+
+        .bassa-title-area {
+            text-align: right;
+        }
+        @media (max-width: 768px) { .bassa-title-area { text-align: left; } }
+
+        .translation-title {
+            font-size: 2.6rem;
+            color: var(--accent-warm);
+            font-weight: 800;
+            margin: 0;
+        }
+        .spelling-fr {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-top: 5px;
+        }
+
+        /* Mise en page côte à côte plus aérée */
+        .bilingual-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        @media (max-width: 768px) { .bilingual-grid { grid-template-columns: 1fr; } }
+
+        /* Libellés de sections plus humains */
+        .block-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .div-type {
+            background-color: var(--bg-cream);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-style: italic;
+            margin-bottom: 20px;
+            display: inline-block;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            border: 1px solid var(--border-soft);
+        }
+
+        .div-definition {
+            padding: 20px;
+            border-radius: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            min-height: 60px;
+            font-size: 1.1rem;
+        }
+
+        .div-example {
+            padding: 20px;
+            border-radius: 16px;
+            font-style: italic;
+            line-height: 1.6;
+            font-size: 1.1rem;
+            position: relative;
+        }
+
+        .div-example::before {
+            content: "“";
+            font-size: 2.5rem;
+            position: absolute;
+            left: 8px;
+            top: -5px;
+            color: rgba(0,0,0,0.05);
+            font-family: Georgia, serif;
+        }
+
+        .fr-box {
+            background-color: var(--bg-fr-box);
+            border: 1px solid var(--border-fr-box);
+        }
+        .bassa-box {
+            background-color: var(--bg-bassa-box);
+            border: 1px solid var(--border-bassa-box);
+            font-weight: 500;
+        }
+
+        .message {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            padding: 30px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-area">
+        <h1>Heritage & Parole</h1>
+        <div class="intro-text">
+            Bienvenue dans notre espace vivant de transmission. Ce carnet rassemble les expressions, les murmures de la famille et les structures de la langue <em>Ɓàsàà</em>. Tapez un souvenir ou choisissez un mot pour l'écouter s'ouvrir.
+        </div>
+    </div>
+
+    <div class="search-box">
+        <input type="text" id="search-input" placeholder="Quel mot ou expression cherchez-vous aujourd'hui ? (ex: maman, inyuu, jɛ́)..." autocomplete="off">
+    </div>
+
+    <div class="words-list-container">
+        <div class="list-header-flex">
+            <div class="list-title">Parcourir la mémoire du carnet</div>
+            <div id="words-count" class="words-count font-style: normal;">0 expression</div>
+        </div>
+        <div id="words-grid" class="words-grid"></div>
+    </div>
+
+    <div id="message-container" class="message">
+        Ouverture du carnet de transmission...
+    </div>
+
+    <div id="result-container" class="result-box">
+        <div class="titles-flex">
+            <h2 id="res-word-fr" class="word-title">Français</h2>
+            <span style="font-size: 1.8rem; color: var(--accent-warm); font-weight: 300;">➔</span>
+            <div class="bassa-title-area">
+                <h2 id="res-word-bassa" class="translation-title">Ɓàsàà</h2>
+                <div id="res-spelling-fr" class="spelling-fr">Écriture au clavier : -</div>
+            </div>
+        </div>
+
+        <div class="bilingual-grid">
+            <div>
+                <div>
+                    <div class="block-label">💡 Usage dans la phrase :</div>
+                    <div id="res-type-fr" class="div-type">-</div>
+                </div>
+                <div>
+                    <div class="block-label">💬 Ce que cela signifie :</div>
+                    <div id="res-def-fr" class="div-definition fr-box">-</div>
+                </div>
+                <div>
+                    <div class="block-label">📝 Exemple de tous les jours :</div>
+                    <div id="res-ex-fr" class="div-example fr-box">-</div>
+                </div>
+            </div>
+
+            <div>
+                <div>
+                    <div class="block-label">🌿 Nature en Ɓàsàà :</div>
+                    <div id="res-type-bassa" class="div-type">-</div>
+                </div>
+                <div>
+                    <div class="block-label">🗣️ Liyak (Le sens profond) :</div>
+                    <div id="res-def-bassa" class="div-definition bassa-box">-</div>
+                </div>
+                <div>
+                    <div class="block-label">🍃 Linyuu (La parole en situation) :</div>
+                    <div id="res-ex-bassa" class="div-example bassa-box">-</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let dictionnaireBassa = {};
+
+    const searchInput = document.getElementById('search-input');
+    const wordsGrid = document.getElementById('words-grid');
+    const wordsCount = document.getElementById('words-count');
+    const messageContainer = document.getElementById('message-container');
+    const resultContainer = document.getElementById('result-container');
+
+    async function chargerBaseDonnees() {
+        try {
+            const reponse = await fetch('mots.json');
+            if (!reponse.ok) throw new Error("Base de données introuvable");
+
+            dictionnaireBassa = await reponse.json();
+
+            messageContainer.innerHTML = "✨ Choisissez une expression ci-dessus ou écrivez pour explorer.";
+            genererListeEtFiltrer("");
+        } catch (erreur) {
+            messageContainer.innerHTML = "⚠️ Le carnet n'a pas pu lier le fichier 'mots.json'. Assurez-vous d'utiliser une extension de prévisualisation (Live Server).";
+            console.error(erreur);
+        }
+    }
+
+    function genererListeEtFiltrer(filtre) {
+        wordsGrid.innerHTML = '';
+        const recherche = filtre.toLowerCase().trim();
+        let compteur = 0;
+
+        Object.keys(dictionnaireBassa).sort().forEach(motFr => {
+            const data = dictionnaireBassa[motFr];
+            const motBassa = data.translation.toLowerCase();
+            const orthographeFr = data.orthographe_fr ? data.orthographe_fr.toLowerCase() : "";
+
+            if (recherche === "" || motFr.includes(recherche) || motBassa.includes(recherche) || orthographeFr.includes(recherche)) {
+                compteur++;
+                const div = document.createElement('div');
+                div.classList.add('word-item-btn');
+                div.innerHTML = `${motFr} ⇄ ${data.translation}`;
+
+                div.addEventListener('click', () => {
+                    afficherMot(motFr);
+                });
+                wordsGrid.appendChild(div);
+            }
+        });
+
+        wordsCount.textContent = `${compteur} expression${compteur > 1 ? 's' : ''}`;
+
+        if (compteur === 0) {
+            wordsGrid.innerHTML = '<div style="padding: 15px; color: var(--text-muted); font-style: italic;">Aucune parole correspondante dans le carnet pour le moment...</div>';
+        }
+    }
+
+    function afficherMot(cleFr) {
+        const motTrouve = dictionnaireBassa[cleFr];
+
+        if (motTrouve) {
+            document.getElementById('res-word-fr').textContent = cleFr;
+            document.getElementById('res-word-bassa').textContent = motTrouve.translation;
+
+            const spellingEl = document.getElementById('res-spelling-fr');
+            if (motTrouve.orthographe_fr) {
+                spellingEl.style.display = "block";
+                spellingEl.textContent = `Saisie simplifiée : ${motTrouve.orthographe_fr}`;
+            } else {
+                spellingEl.style.display = "none";
+            }
+
+            document.getElementById('res-type-fr').textContent = motTrouve.fr.type;
+            document.getElementById('res-def-fr').textContent = motTrouve.fr.definition;
+            document.getElementById('res-ex-fr').textContent = motTrouve.fr.exemple;
+
+            document.getElementById('res-type-bassa').textContent = motTrouve.bassa.type;
+            document.getElementById('res-def-bassa').textContent = motTrouve.bassa.definition;
+            document.getElementById('res-ex-bassa').textContent = motTrouve.bassa.exemple;
+
+            messageContainer.style.display = "none";
+            resultContainer.style.display = "block";
+
+            resultContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+    searchInput.addEventListener('input', (e) => {
+        genererListeEtFiltrer(e.target.value);
+    });
+
+    chargerBaseDonnees();
+</script>
+</body>
+</html>
